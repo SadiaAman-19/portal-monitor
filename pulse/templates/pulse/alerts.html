@@ -1,0 +1,7 @@
+{% extends "pulse/base.html" %}
+{% block content %}
+<h1 style="max-width:none">Alerts</h1>
+{% for a in alerts %}
+<div class="panel {% if not a.is_read %}unread{% endif %}"><div class="row"><div><b>{{ a.get_kind_display }}</b> &ndash; <a href="{% url 'monitor_detail' a.monitor.pk %}">{{ a.monitor.name }}</a><div class="sub">{{ a.message }}</div></div><span class="sub">{{ a.created_at|date:"d M, H:i" }}</span></div></div>
+{% empty %}<div class="panel">No alerts yet. You will see a message here when a monitor goes down or recovers.</div>{% endfor %}
+{% endblock %}

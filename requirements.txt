@@ -1,0 +1,7 @@
+Django>=5.1,<6.0
+djangorestframework>=3.15
+requests>=2.32
+gunicorn>=22.0
+whitenoise>=6.6
+# Only needed if you use PostgreSQL on AWS RDS:
+# psycopg2-binary>=2.9

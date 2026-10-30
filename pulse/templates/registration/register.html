@@ -1,0 +1,11 @@
+{% extends "pulse/base.html" %}
+{% block content %}
+<div class="auth">
+<h1>Create an account</h1>
+<form method="post" class="panel">{% csrf_token %}
+  {% for field in form %}{{ field.errors }}<label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.help_text %}<span class="helptext">{{ field.help_text|safe }}</span>{% endif %}{% endfor %}
+  <p><button class="btn" type="submit">Create account</button></p>
+  <p class="sub">Already registered? <a href="{% url 'login' %}">Log in</a></p>
+</form>
+</div>
+{% endblock %}

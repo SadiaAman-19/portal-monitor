@@ -1,0 +1,36 @@
+{% extends "pulse/base.html" %}
+{% block title %}{{ monitor.name }} &ndash; CampusPulse{% endblock %}
+{% block content %}
+<div class="row"><h1 style="max-width:none">{{ monitor.name }}</h1>{% include "pulse/_badge.html" with status=monitor.status %}</div>
+<p class="sub">{{ monitor.url }}</p>
+<div class="panel">
+  {% include "pulse/_ticks.html" %}
+  <div class="meta"><span>Uptime 24h: <b>{% if uptime_24h is not None %}{{ uptime_24h }}%{% else %}no data{% endif %}</b></span>
+  <span>Uptime 7d: <b>{% if uptime_7d is not None %}{{ uptime_7d }}%{% else %}no data{% endif %}</b></span>
+  <span>Consecutive failures: <b>{{ monitor.consecutive_failures }}</b></span>
+  {% if monitor.ssl_days_left is not None %}<span>SSL expires in <b>{{ monitor.ssl_days_left }} days</b></span>{% endif %}</div>
+  <p>
+    <form class="inline" method="post" action="{% url 'monitor_check_now' monitor.pk %}">{% csrf_token %}<button class="btn" type="submit">Check now</button></form>
+    <form class="inline" method="post" action="{% url 'monitor_toggle' monitor.pk %}">{% csrf_token %}<button class="btn ghost" type="submit">{% if monitor.is_active %}Pause{% else %}Resume{% endif %}</button></form>
+    <form class="inline" method="post" action="{% url 'monitor_delete' monitor.pk %}" onsubmit="return confirm('Delete this monitor and its history?')">{% csrf_token %}<button class="btn danger" type="submit">Delete</button></form>
+  </p>
+</div>
+<h2>Response time (ms)</h2>
+<div class="panel"><canvas id="rt" height="90" aria-label="Response time chart"></canvas></div>
+<h2>Incidents</h2>
+<div class="panel"><table><tr><th>Started</th><th>Duration</th><th>Reason</th><th></th></tr>
+{% for i in incidents %}<tr><td>{{ i.started_at|date:"d M, H:i" }}</td><td>{{ i.duration|timesince:i.started_at }}</td><td>{{ i.reason }}</td><td>{% if i.is_open %}<span class="badge down">Open</span>{% else %}<span class="badge up">Resolved</span>{% endif %}</td></tr>
+{% empty %}<tr><td colspan="4">No incidents. This monitor has not gone down.</td></tr>{% endfor %}</table></div>
+<h2>Recent checks</h2>
+<div class="panel"><table><tr><th>Time</th><th>Result</th><th>HTTP</th><th>Response</th><th>Error</th></tr>
+{% for r in results %}<tr><td>{{ r.checked_at|date:"d M, H:i:s" }}</td><td>{% if r.is_up %}Up{% else %}Down{% endif %}</td><td>{{ r.status_code|default:"-" }}</td><td>{% if r.response_ms is not None %}{{ r.response_ms }} ms{% else %}-{% endif %}</td><td>{{ r.error }}</td></tr>
+{% empty %}<tr><td colspan="5">No checks yet. Press "Check now" or start the background checker.</td></tr>{% endfor %}</table></div>
+{{ chart|json_script:"chart-data" }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const d = JSON.parse(document.getElementById("chart-data").textContent);
+new Chart(document.getElementById("rt"), {type:"line",
+  data:{labels:d.labels,datasets:[{data:d.values,borderColor:"#0E7C5A",backgroundColor:"#0E7C5A",borderWidth:2,pointRadius:2,tension:.25,spanGaps:false}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+</script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "pulse/base.html" %}
+{% block title %}Dashboard &ndash; CampusPulse{% endblock %}
+{% block content %}
+<div class="row"><h1 style="max-width:none">Your monitors</h1><a class="btn" href="{% url 'monitor_add' %}">Add monitor</a></div>
+{% if open_incidents %}<div class="msg" style="background:#F7E2DF;border-color:var(--down)">{{ open_incidents }} open incident{{ open_incidents|pluralize }} right now.</div>{% endif %}
+<div class="grid">
+{% for monitor in monitors %}
+<div class="panel">
+  <div class="row"><div><a class="name" href="{% url 'monitor_detail' monitor.pk %}">{{ monitor.name }}</a>{% if not monitor.is_active %} <span class="sub">(paused)</span>{% endif %}<div class="sub">{{ monitor.url }}</div></div>
+  {% include "pulse/_badge.html" with status=monitor.status %}</div>
+  {% include "pulse/_ticks.html" %}
+  <div class="meta"><span>Uptime 24h: <b>{% if monitor.uptime %}{{ monitor.uptime }}%{% else %}no data{% endif %}</b></span>
+  <span>Every <b>{{ monitor.interval_seconds }}s</b></span>
+  {% if monitor.ssl_days_left is not None %}<span>SSL expires in <b>{{ monitor.ssl_days_left }} days</b></span>{% endif %}</div>
+</div>
+{% empty %}
+<div class="panel">You are not monitoring anything yet. Add your first URL to start collecting checks.</div>
+{% endfor %}
+</div>
+{% endblock %}

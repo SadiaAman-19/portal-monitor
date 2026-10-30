@@ -1,0 +1,10 @@
+{% extends "pulse/base.html" %}
+{% block content %}
+<div class="auth medium">
+<h1>Add a monitor</h1>
+<form method="post" class="panel">{% csrf_token %}
+  {% for field in form %}{{ field.errors }}<label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.help_text %}<span class="helptext">{{ field.help_text }}</span>{% endif %}{% endfor %}
+  <p><button class="btn" type="submit">Start monitoring</button><a class="btn ghost" href="{% url 'dashboard' %}">Cancel</a></p>
+</form>
+</div>
+{% endblock %}

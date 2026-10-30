@@ -1,0 +1,61 @@
+:root{--paper:#F2F5F3;--panel:#FFFFFF;--ink:#12222B;--muted:#5B6B72;--line:#D3DCD8;
+--up:#0E7C5A;--down:#C23B2E;--warn:#B77A0B;--radius:6px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "Onest",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--ink)}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+nav{border-bottom:1px solid var(--line);background:var(--panel)}
+nav .wrap{display:flex;align-items:center;gap:20px;min-height:56px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:18px;text-decoration:none;margin-right:auto;letter-spacing:-.01em}
+nav a,nav button.link{color:var(--muted);text-decoration:none;font:inherit;background:none;border:0;cursor:pointer;padding:0}
+nav a:hover,nav button.link:hover{color:var(--ink)}
+.count{background:var(--down);color:#fff;border-radius:10px;font-size:12px;padding:1px 7px;margin-left:4px}
+h1{font-size:clamp(26px,4.5vw,38px);line-height:1.12;letter-spacing:-.02em;margin:32px 0 10px;max-width:18ch}
+h2{font-size:20px;margin:32px 0 12px}
+.lead{color:var(--muted);max-width:56ch;margin:0 0 24px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-bottom:12px}
+.row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.name{font-weight:600;text-decoration:none}.sub{color:var(--muted);font-size:14px;word-break:break-all}
+.badge{display:inline-block;font-size:13px;font-weight:600;padding:2px 10px;border-radius:12px;border:1px solid}
+.badge.up{color:var(--up);border-color:var(--up)}.badge.down{color:#fff;background:var(--down);border-color:var(--down)}
+.badge.unknown{color:var(--muted);border-color:var(--line)}
+.ticks{display:flex;gap:2px;height:30px;align-items:stretch;margin:10px 0 2px}
+.tick{flex:1;border-radius:1px;background:var(--line);min-width:3px}
+.tick.up{background:var(--up)}.tick.down{background:var(--down)}
+.meta{display:flex;gap:24px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.meta b{color:var(--ink)}
+.btn{display:inline-block;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:var(--radius);
+padding:7px 14px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}.btn.danger{background:var(--down);border-color:var(--down)}
+.btn:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #7FB7A4;outline-offset:2px}
+form.inline{display:inline}
+input[type=text],input[type=url],input[type=email],input[type=number],input[type=password]{
+width:100%;padding:8px 11px;border:1px solid var(--line);border-radius:var(--radius);font:inherit;background:#fff}
+label{display:block;font-weight:600;margin:14px 0 4px}.errorlist{color:var(--down);list-style:none;padding:0;margin:4px 0;font-size:14px}
+.helptext{color:var(--muted);font-size:13px;display:block}
+.msg{padding:10px 16px;border-radius:var(--radius);background:#E3F1EB;border:1px solid var(--up);margin:16px 0}
+.search{display:flex;gap:8px;margin-bottom:20px}.search input{max-width:300px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600}
+.banner{padding:18px 20px;border-radius:var(--radius);font-size:20px;font-weight:700;margin:32px 0 20px;color:#fff}
+.banner.up{background:var(--up)}.banner.down{background:var(--down)}.banner.unknown{background:var(--muted)}
+.unread{border-left:4px solid var(--down)}
+footer{color:var(--muted);font-size:13px;padding:40px 0}
+@media(max-width:600px){.meta{gap:12px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.brand{display:flex;align-items:center;gap:8px}.brand svg{flex:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,430px),1fr));gap:14px;margin-bottom:24px}
+.grid .panel{margin:0}
+.auth{max-width:360px;margin:40px auto}.auth.medium{max-width:520px}
+.auth h1{font-size:24px;margin:0 0 14px;max-width:none}
+.auth .panel{padding:18px 20px}
+.auth label:first-of-type{margin-top:0}
+.auth .btn[type=submit]{width:100%;margin-top:6px;text-align:center}
+.auth .btn.ghost{width:100%;margin-top:8px;text-align:center}
+.auth .helptext{margin-top:3px}
+.auth .sub{margin:14px 0 0;text-align:center}
+.auth input[type=checkbox]{width:auto;margin-right:8px}
+.checkrow label{display:flex;align-items:center;font-weight:400;margin-top:14px}
+nav a.brand{color:var(--ink)}
+.row h1{font-size:28px;margin:24px 0 8px}

@@ -1,0 +1,13 @@
+[Unit]
+Description=CampusPulse web (gunicorn)
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/campuspulse
+EnvironmentFile=/home/ubuntu/campuspulse/.env
+ExecStart=/home/ubuntu/campuspulse/venv/bin/gunicorn campuspulse.wsgi:application --bind 127.0.0.1:8000 --workers 3
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

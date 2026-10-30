@@ -1,0 +1,13 @@
+[Unit]
+Description=CampusPulse background checker (thread pool)
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/campuspulse
+EnvironmentFile=/home/ubuntu/campuspulse/.env
+ExecStart=/home/ubuntu/campuspulse/venv/bin/python manage.py check_monitors
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

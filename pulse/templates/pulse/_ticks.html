@@ -1,0 +1,1 @@
+<div class="ticks" role="img" aria-label="Last 48 checks">{% for t in monitor.recent_ticks %}<i class="tick {% if t is None %}empty{% elif t %}up{% else %}down{% endif %}"></i>{% endfor %}</div>
