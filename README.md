@@ -1,4 +1,4 @@
-# CampusPulse
+# Portal Monitor
 
 A cloud-hosted uptime monitor for campus portals (result sites, admission pages, fee systems).
 It checks many URLs in parallel, opens an incident only after 3 failed checks in a row, warns about

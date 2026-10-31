@@ -77,6 +77,11 @@ class WebAndApiTests(TestCase):
                            ("monitor_detail", [self.ma.pk]), ("status_user", ["a"])]:
             self.assertEqual(self.client.get(reverse(name, args=args)).status_code, 200, name)
 
+    def test_zero_uptime_is_shown_as_zero_not_no_data(self):
+        from .models import CheckResult
+        CheckResult.objects.create(monitor=self.ma, is_up=False, error="ConnectionError")
+        self.assertContains(self.client.get(reverse("home")), "0.0%")
+
     def test_dashboard_requires_login(self):
         self.assertEqual(self.client.get(reverse("dashboard")).status_code, 302)
 

@@ -62,7 +62,7 @@ def check_url(url):
         # Redirects are NOT followed: a redirect could point to an internal address (SSRF).
         # A 3xx answer still proves the server is alive, so it counts as UP.
         with requests.get(url, timeout=settings.CHECK_TIMEOUT, allow_redirects=False, stream=True,
-                          headers={"User-Agent": "CampusPulse/1.0"}) as resp:
+                          headers={"User-Agent": "PortalMonitor/1.0"}) as resp:
             code = resp.status_code
         return {"status_code": code, "response_ms": int((time.monotonic() - started) * 1000),
                 "is_up": code < 400, "error": "" if code < 400 else f"HTTP {code}",
@@ -78,7 +78,7 @@ def check_url(url):
 def _alert(monitor, kind, message):
     Alert.objects.create(user=monitor.owner, monitor=monitor, kind=kind, message=message)
     if monitor.owner.email:
-        send_mail(f"[CampusPulse] {monitor.name}: {kind}", message, None,
+        send_mail(f"[Portal Monitor] {monitor.name}: {kind}", message, None,
                   [monitor.owner.email], fail_silently=True)
 
 

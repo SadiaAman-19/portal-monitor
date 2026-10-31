@@ -1,5 +1,5 @@
 {% extends "pulse/base.html" %}
-{% block title %}{{ monitor.name }} &ndash; CampusPulse{% endblock %}
+{% block title %}{{ monitor.name }} &ndash; Portal Monitor{% endblock %}
 {% block content %}
 <div class="row"><h1 style="max-width:none">{{ monitor.name }}</h1>{% include "pulse/_badge.html" with status=monitor.status %}</div>
 <p class="sub">{{ monitor.url }}</p>

@@ -1,11 +1,11 @@
 {% extends "pulse/base.html" %}
-{% block title %}{{ owner.username }} status &ndash; CampusPulse{% endblock %}
+{% block title %}{{ owner.username }} status &ndash; Portal Monitor{% endblock %}
 {% block content %}
 <div class="banner {{ tone }}">{{ summary }}</div>
 <p class="sub">Status page of <b>{{ owner.username }}</b></p>
 {% for monitor in monitors %}
 <div class="panel"><div class="row"><div><span class="name">{{ monitor.name }}</span><div class="sub">{{ monitor.url }}</div></div>{% include "pulse/_badge.html" with status=monitor.status %}</div>
 {% include "pulse/_ticks.html" %}
-<div class="meta"><span>Uptime 24h: <b>{% if monitor.uptime %}{{ monitor.uptime }}%{% else %}no data{% endif %}</b></span></div></div>
+<div class="meta"><span>Uptime 24h: <b>{% if monitor.uptime is not None %}{{ monitor.uptime }}%{% else %}no data{% endif %}</b></span></div></div>
 {% empty %}<div class="panel">{{ owner.username }} has not published any services.</div>{% endfor %}
 {% endblock %}

@@ -1,5 +1,5 @@
 [Unit]
-Description=CampusPulse background checker (thread pool)
+Description=Portal Monitor background checker (thread pool)
 After=network.target
 
 [Service]

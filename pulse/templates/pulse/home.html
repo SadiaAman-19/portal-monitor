@@ -1,7 +1,7 @@
 {% extends "pulse/base.html" %}
 {% block content %}
 <h1>Is the portal down, or is it just you?</h1>
-<p class="lead">Result sites, admission portals and fee systems tend to fail on exactly the day everyone needs them. CampusPulse checks them every minute and shows the last 48 checks, so you can see the truth.</p>
+<p class="lead">Result sites, admission portals and fee systems tend to fail on exactly the day everyone needs them. Portal Monitor checks them every minute and shows the last 48 checks, so you can see the truth.</p>
 <form class="search" method="get"><input type="text" name="q" value="{{ q }}" placeholder="Search a portal, e.g. MUET" aria-label="Search portals"><button class="btn" type="submit">Search</button></form>
 <div class="grid">
 {% for monitor in monitors %}
@@ -9,7 +9,7 @@
   <div class="row"><div><a class="name" href="{% url 'status_user' monitor.owner.username %}">{{ monitor.name }}</a><div class="sub">{{ monitor.url }}</div></div>
   {% include "pulse/_badge.html" with status=monitor.status %}</div>
   {% include "pulse/_ticks.html" %}
-  <div class="meta"><span>Uptime 24h: <b>{{ monitor.uptime|default:"no data" }}{% if monitor.uptime %}%{% endif %}</b></span>
+  <div class="meta"><span>Uptime 24h: <b>{% if monitor.uptime is not None %}{{ monitor.uptime }}%{% else %}no data{% endif %}</b></span>
   <span>Last checked: <b>{{ monitor.last_checked|timesince|default:"never" }}{% if monitor.last_checked %} ago{% endif %}</b></span></div>
 </div>
 {% empty %}

@@ -89,7 +89,7 @@ if os.environ.get("EMAIL_HOST_USER"):
     EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER", "alerts@campuspulse.local")
+DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER", "alerts@portalmonitor.local")
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -101,7 +101,7 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {"user": "300/hour"},
 }
 
-# --- CampusPulse checker settings ---
+# --- Portal Monitor checker settings ---
 FAILURE_THRESHOLD = 3   # consecutive failed checks before a monitor is declared DOWN
 CHECK_TIMEOUT = 10      # seconds before one check gives up
 MAX_WORKERS = 10        # size of the thread pool

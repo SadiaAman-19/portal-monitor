@@ -1,5 +1,5 @@
 [Unit]
-Description=CampusPulse web (gunicorn)
+Description=Portal Monitor web (gunicorn)
 After=network.target
 
 [Service]
