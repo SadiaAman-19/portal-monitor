@@ -82,6 +82,16 @@ class WebAndApiTests(TestCase):
         CheckResult.objects.create(monitor=self.ma, is_up=False, error="ConnectionError")
         self.assertContains(self.client.get(reverse("home")), "0.0%")
 
+    def test_monitor_page_renders_with_open_and_closed_incidents(self):
+        from .models import Incident
+        Incident.objects.create(monitor=self.ma, started_at=timezone.now() - timedelta(minutes=5), reason="boom")
+        Incident.objects.create(monitor=self.ma, started_at=timezone.now() - timedelta(hours=2),
+                                resolved_at=timezone.now() - timedelta(hours=1), reason="old")
+        self.client.login(username="a", password="pass12345")
+        resp = self.client.get(reverse("monitor_detail", args=[self.ma.pk]))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, "(ongoing)")
+
     def test_dashboard_requires_login(self):
         self.assertEqual(self.client.get(reverse("dashboard")).status_code, 302)
 
